@@ -48,7 +48,12 @@ module CarrierWave
         end
         
         def data
-          YAML::load(@uploader.model.send("#{@uploader.mounted_as}_data")) || {}
+          file_data = @uploader.model.send("#{@uploader.mounted_as}_data")
+          if file_data.kind_of? String
+            YAML::load(file_data) || {}
+          else
+            file_data || {}
+          end
         end
       end
 
