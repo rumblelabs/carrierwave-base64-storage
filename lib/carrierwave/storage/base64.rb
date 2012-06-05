@@ -48,7 +48,7 @@ module CarrierWave
         end
         
         def data
-          @uploader.model.send("#{@uploader.mounted_as}_data") || {}
+          YAML::load(@uploader.model.send("#{@uploader.mounted_as}_data")) || {}
         end
       end
 
